@@ -1,0 +1,43 @@
+version: '3'
+services:
+  # api:
+  #  container_name: 'api'    
+  #  build:
+  #    context: ../swu-api
+  #    dockerfile: ./Dockerfile.development
+  #  ports:
+  #    - '3000:3000'    
+  #  env_file:
+  #    - ../swu-api/.env
+  #  networks:
+  #    - swu
+  # ui:
+  # container_name: 'ui'    
+  # build:
+  #   context: ../swu-ui
+  #   dockerfile: ./Dockerfile.development
+  # depends_on:
+  #   - swu-api
+  # ports:
+  #   - '3001:3001'    
+  # env_file:
+  #   - ../swu-ui/.env
+  # networks:
+  #   - swu
+  lb:
+    container_name: 'lb'    
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.development-lb
+        # volumes:
+        # - './x/certificates:/etc/letsencrypt'    
+    ports:
+      - 80:80/tcp
+        # - 443:443/tcp
+        # depends_on:
+        # - api
+        # - ui
+    networks:
+      - swu
+networks:
+  swu:
